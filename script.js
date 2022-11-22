@@ -33,17 +33,17 @@ function setBoard () {
 
     // ------ create player vs player button ------
 
-    const pvpBtn = document.createElement('button')
-    pvpBtn.classList.add('pvpBtn')
-    pvpBtn.textContent = "Player vs Player"
-    options.appendChild(pvpBtn)
+    // const pvpBtn = document.createElement('button')
+    // pvpBtn.classList.add('pvpBtn')
+    // pvpBtn.textContent = "Player vs Player"
+    // options.appendChild(pvpBtn)
 
-    // ------ create playes vs AI button ------
+    // // ------ create playes vs AI button ------
 
-    const pvcBtn = document.createElement('button')
-    pvcBtn.classList.add('pvcBtn')
-    pvcBtn.textContent = "Player vs AI"
-    options.appendChild(pvcBtn)
+    // const pvcBtn = document.createElement('button')
+    // pvcBtn.classList.add('pvcBtn')
+    // pvcBtn.textContent = "Player vs AI"
+    // options.appendChild(pvcBtn)
 
 }
 
@@ -56,6 +56,8 @@ const data = {
     gameOver: false
 }
 
+
+
 const playMove = (cell, data) => {
     
     if(data.gameOver){
@@ -66,11 +68,30 @@ const playMove = (cell, data) => {
         return
     }
     
-    cell.classList.add('rotate')
+    cell.classList.add('jump')
     cell.textContent = `${data.currentPlayer}`
     data.round += 1
-    console.log(data.round)
     data.currentPlayer === "X" ? data.currentPlayer = "O" : data.currentPlayer = "X"
+    checkWinner(data)
 } 
 
+const winningConditions = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+]
+
+const checkWinner = (data) => {
+    const roundOutcome = document.createElement('h1')
+    if (data.round === 9) {
+        roundOutcome.textContent = "Its a tie"
+        board.prepend(roundOutcome)
+    }
+
+}
 
