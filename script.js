@@ -43,7 +43,16 @@ function setBoard () {
 
 }
 
-const eventListener = (event) => {
+const variables = (data) => {
+    data.board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    data.player1 = "X"
+    data.player2 = "O"
+    data.round = 0
+    data.currentPlayer = "X"
+    data.gameOver = false
+}
 
+const initializeGame = (data) => {
+    variables(data)
 }
 
