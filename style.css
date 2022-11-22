@@ -62,7 +62,7 @@ main {
     transition: 0.2s ease-in-out;
 }
 
-#start_game_btn {
+#set_board_btn {
     margin: auto;
     padding: 2rem;
     border-radius: 1rem;

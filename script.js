@@ -1,15 +1,13 @@
 // ------ Making start game button ------
 
 const board = document.getElementById('board')
-const startGameBtn = document.getElementById('start_game_btn')
-startGameBtn.addEventListener('click', startGame)
-
-let cells = []
+const setBoardBtn = document.getElementById('set_board_btn')
+setBoardBtn.addEventListener('click', setBoard)
 
 // ------ function to set up game board ------
 
-function startGame () {
-    startGameBtn.remove()
+function setBoard () {
+    setBoardBtn.remove()
     const grid = document.createElement('div')
     grid.classList.add('grid')
     board.appendChild(grid)
@@ -18,7 +16,6 @@ function startGame () {
     
     for(let i = 1; i <= 9; i++) {
         const cell = document.createElement('div')
-        //cell.addEventListener('click', makeMove)
         cell.classList.add('cell')
         cell.setAttribute('id', [i])
         grid.appendChild(cell)
@@ -45,3 +42,8 @@ function startGame () {
     options.appendChild(pvcBtn)
 
 }
+
+const eventListener = (event) => {
+
+}
+
