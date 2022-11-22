@@ -4,6 +4,7 @@ const board = document.getElementById('board')
 const setBoardBtn = document.getElementById('set_board_btn')
 setBoardBtn.addEventListener('click', setBoard)
 
+
 // ------ function to set up game board ------
 
 function setBoard () {
@@ -14,10 +15,13 @@ function setBoard () {
     
     // ------ loop to make grid ------
     
-    for(let i = 1; i <= 9; i++) {
+    for(let i = 0; i <= 8; i++) {
         const cell = document.createElement('div')
         cell.classList.add('cell')
         cell.setAttribute('id', [i])
+        cell.addEventListener('click', (event) => {
+            playMove(event.target,data)
+        })
         grid.appendChild(cell)
     }
 
@@ -43,16 +47,30 @@ function setBoard () {
 
 }
 
-const variables = (data) => {
-    data.board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    data.player1 = "X"
-    data.player2 = "O"
-    data.round = 0
-    data.currentPlayer = "X"
-    data.gameOver = false
+const data = {
+    cells: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    player1: "X",
+    player2: "O",
+    round: 0,
+    currentPlayer: "X",
+    gameOver: false
 }
 
-const initializeGame = (data) => {
-    variables(data)
-}
+const playMove = (cell, data) => {
+    
+    if(data.gameOver){
+        return
+    }
+
+    if(cell.textContent === "X" || cell.textContent === "O"){
+        return
+    }
+    
+    cell.classList.add('rotate')
+    cell.textContent = `${data.currentPlayer}`
+    data.round += 1
+    console.log(data.round)
+    data.currentPlayer === "X" ? data.currentPlayer = "O" : data.currentPlayer = "X"
+} 
+
 
