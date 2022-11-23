@@ -67,7 +67,8 @@ const playMove = (cell, data) => {
     if(cell.textContent === "X" || cell.textContent === "O"){
         return
     }
-    
+    cell.removeAttribute('id')
+    cell.setAttribute('id', `${data.currentPlayer}`);
     cell.classList.add('jump')
     cell.textContent = `${data.currentPlayer}`
     data.round += 1
@@ -88,10 +89,52 @@ const winningConditions = [
 
 const checkWinner = (data) => {
     const roundOutcome = document.createElement('h1')
-    if (data.round === 9) {
+    
+    if (checkLines(data)) {
+        return
+    } else if (data.round === 9) {
         roundOutcome.textContent = "Its a tie"
         board.prepend(roundOutcome)
-    }
+        data.gameOver = true
+        resetGameBtn(data)
+    } 
+     
 
 }
 
+const checkLines = (data) => {
+    let result = false
+    const  cells = document.querySelectorAll('.cell')
+    winningConditions.forEach(condition => {
+        if ((cells[condition[0]].textContent === "X" && 
+            cells[condition[1]].textContent === "X" &&
+            cells[condition[2]].textContent === "X") || 
+            (cells[condition[0]].textContent === "O" && 
+            cells[condition[1]].textContent === "O" &&
+            cells[condition[2]].textContent === "O")) {
+                const roundOutcome = document.createElement('h1')
+                data.gameOver = true
+                roundOutcome.textContent = `${data.currentPlayer ==="X" ? "Player 2" : "Player 1"} won!!`
+                board.prepend(roundOutcome)
+                resetGameBtn(data)
+                result = true
+                
+        } 
+    })
+    return result
+}
+
+const resetGameBtn = (data) => {
+    if (data.gameOver === true) {
+        const resetBtn = document.createElement('button')
+        resetBtn.textContent = "Reset Game"
+
+        board.appendChild(resetBtn)
+        resetBtn.addEventListener('click', resetGame)
+
+        function resetGame() { 
+            board.childNodes.remove()
+            setBoard(data)
+        }
+    }
+}
