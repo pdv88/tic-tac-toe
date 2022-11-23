@@ -48,9 +48,6 @@ function setBoard () {
 }
 
 const data = {
-    cells: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-    player1: "X",
-    player2: "O",
     round: 0,
     currentPlayer: "X",
     gameOver: false
@@ -93,7 +90,7 @@ const checkWinner = (data) => {
     if (checkLines(data)) {
         return
     } else if (data.round === 9) {
-        roundOutcome.textContent = "Its a tie"
+        roundOutcome.textContent = "It's a tie"
         board.prepend(roundOutcome)
         data.gameOver = true
         resetGameBtn(data)
@@ -131,9 +128,15 @@ const resetGameBtn = (data) => {
 
         board.appendChild(resetBtn)
         resetBtn.addEventListener('click', resetGame)
-
-        function resetGame() { 
-            board.childNodes.remove()
+        data.round = 0
+        data.currentPlayer = "X"
+        data.gameOver = false
+        function resetGame(data) { 
+            const boardChildren = document.getElementById('board').childNodes.length
+            
+            for (i = 0; i < boardChildren; i++) {
+                board.lastChild.remove()
+            }            
             setBoard(data)
         }
     }
